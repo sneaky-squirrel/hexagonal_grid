@@ -1,8 +1,9 @@
 Import('env')
 
 sources = [
-    "register_types.cpp",
-    "hexagon_grid.cpp"
+	"register_types.cpp",
+	"hexagon_grid_2d.cpp",
+	"hexagon_tile_2d.cpp"
 ]
 
 # First, create a custom env for the shared library.

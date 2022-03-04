@@ -1,3 +1,6 @@
+#ifndef HEXAGON_MATH_H
+#define HEXAGON_MATH_H
+
 #include <array>
 
 namespace HexagonGrid
@@ -22,16 +25,26 @@ namespace HexagonGrid
 		int x;
 		int y;
 		int z;
-		CubeCoordinates( const bool bIsValid, const int _x, const int _y, const int _z );
+		CubeCoordinates( bool bIsValid, int _x, int _y, int _z );
 	};
 
-	bool operator==( const CubeCoordinates& lhs, const CubeCoordinates& rhs );
-	bool operator!=( const CubeCoordinates& lhs, const CubeCoordinates& rhs );
-	CubeCoordinates operator+( const CubeCoordinates& lhs, const CubeCoordinates& rhs );
-	CubeCoordinates operator-( const CubeCoordinates& lhs, const CubeCoordinates& rhs );
-	CubeCoordinates operator*( const CubeCoordinates& vector, const int scale );
-	CubeCoordinates rotate( const CubeCoordinates& vector, const bool bClockwise );
-	CubeCoordinates rotate( const CubeCoordinates& target, const CubeCoordinates& pivot, const bool bClockwise );
-	void print( const char* str, const CubeCoordinates& vector );
+	struct CartesianCoordinates
+	{
+		double x;
+		double y;
+		CartesianCoordinates( double _x, double _y );
+	};
+
+	bool operator==( const CubeCoordinates &lhs, const CubeCoordinates &rhs );
+	bool operator!=( const CubeCoordinates &lhs, const CubeCoordinates &rhs );
+	CubeCoordinates operator+( const CubeCoordinates &lhs, const CubeCoordinates &rhs );
+	CubeCoordinates operator-( const CubeCoordinates &lhs, const CubeCoordinates &rhs );
+	CubeCoordinates operator*( const CubeCoordinates &vector, int scale );
+	CubeCoordinates rotate( const CubeCoordinates &vector, bool bClockwise );
+	CubeCoordinates rotate( const CubeCoordinates &target, const CubeCoordinates &pivot, bool bClockwise );
+	void print( const char* str, const CubeCoordinates &vector );
+	CartesianCoordinates cubeToCartesian( const CubeCoordinates &coordinates, int grid_size );
+	CubeCoordinates cartesianToCube( const CartesianCoordinates &coordinates, int grid_size );
 }
 
+#endif

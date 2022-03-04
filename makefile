@@ -1,7 +1,7 @@
 PROGRAM = hex-driver
 IDIR = .
 CC = g++
-CFLAGS = -I$(IDIR)
+CFLAGS = $(patsubst %, -I%, $(IDIR))
 CPPFLAGS =
 
 ODIR = .
@@ -11,18 +11,18 @@ LDIR = ../lib
 
 LIBS = -lstdc++
 
-_OBJ = hexagon_math.o
-OBJ = $(patsubst %, $(ODIR)/%, $(_OBJ) )
+_OBJ = hexagon_math
+OBJ = $(patsubst %, $(ODIR)/%.o, $(_OBJ) )
 
 $(ODIR)/%.o: %.c $(IDIR)/%.h
-	$(CC) $(CPPFLAGS) -c -o $@ $< $(CFLAGS) $(LIBS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $< $(LIBS)
 
 $(BDIR)/$(PROGRAM): $(TDIR)/hex-driver.cpp $(OBJ)
-	$(CC) $(CPPFLAGS) -o $@ $^ $(CFLAGS)
+	$(CC) $(CFLAGS) -o $@ $^ $(CPPFLAGS)
 
 run:
 	make
 	./$(BDIR)/$(PROGRAM)
 clean:
-	rm -f $(ODIR)/*.o *~ core
-	rm $(PROGRAM)
+	rm -f *.o *.os *~ core
+	rm $(BDIR)/$(PROGRAM)
